@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.csl.datacore</groupId>
+  <artifactId>CSL-Data-Core</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>CSL-Data-Core</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <springframework-version>3.1.2.RELEASE</springframework-version>
+        <springdatajpa-version>1.3.2.RELEASE</springdatajpa-version>
+        <hibernate-version>4.2.1.Final</hibernate-version>
+        <hibernate-validator-version>5.0.1.Final</hibernate-validator-version>
+        <mysql-version>5.1.25</mysql-version>
+        <postgresql-version>9.1-901.jdbc4</postgresql-version>
+    </properties>
+    <developers>
+        <developer>
+            <name>Deni Husni Fahri Rizal</name>
+            <email>deni.fahri@ciptasrigatilestari.co.id</email>
+            <organization>CSL</organization>
+            <organizationUrl>http://www.ciptasrigatilestari.co.id</organizationUrl>
+            <roles>
+                <role>Project Owner</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+         <developer>
+            <name>Satrio Aditya</name>
+            <email>satrio.aditya@ciptasrigatilestari.co.id</email>
+            <organization>CSL</organization>
+            <organizationUrl>http://www.ciptasrigatilestari.co.id</organizationUrl>
+            <roles>
+                <role>Developer</role>
+                <role>Technical Writer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${springdatajpa-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <description>Componet CSL-DATA-CORE: Spring, Hibernate, Spring Data JPA, JPA, CDI,MySQL, </description>
+</project>

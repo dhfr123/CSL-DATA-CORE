@@ -1,0 +1,16 @@
+CSL Data Core Change log
+=========================
+
+Changes in version 1.0.RELEASE (2013-06-13)
+---------------------------------------------
+* Include Spring 3.1.2.RELEASE
+* Include Spring Data JPA 1.3.2.RELEASE
+* Include Hibernate 4.2.1.Final
+* Include Hibernate Validator 5.0.1.Final
+* Include CDI 1.1
+* Include MySQL Connector 5.1.25
+* Include PROSGRESQL Connector 9.1-901.jdbc4
+
+
+
+
