@@ -35,7 +35,9 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     /**
      * Methode getClass berdasarkan Pk dengan tipe variable String
      *
-     * @param T berupa Class
+     * @return T berupa Class
+     * @param kode id atau primary key dari entity
+     * 
      */
     public T getByPkString(String kode) {
         return getHibernateTemplate().get(getEntityClass(), kode);
@@ -44,7 +46,8 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     /**
      * Methode getClass berdasarkan Pk dengan tipe variable Integer
      *
-     * @param T berupa Class
+     * @return T berupa Class
+     * @param kode id atau primary key dari entity
      */
     public T getByPkInteger(Integer kode) {
         return getHibernateTemplate().get(getEntityClass(), kode);
@@ -55,8 +58,8 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
      * baru maka method save dieksekusi. Jika data telah ada maka method update
      * yang akan di eksekusi.
      *
-     * @param T berupa class
-     * @return T beruoa class
+     * @return T berupa class
+     * @param T class entity
      */
     public T saveOrUpdate(T entity) {
         getHibernateTemplate().saveOrUpdate(entity);
@@ -66,7 +69,8 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     /**
      * Methode untuk mendelete Class dari Database.
      *
-     * @param T berupa Class
+     * @return T berupa class
+     * @param T class entity
      */
     public void delete(T entity) {
         getHibernateTemplate().delete(entity);
@@ -76,7 +80,8 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
      * Method delete secara soft dengan merubah isActive dari Y menjadi N.
      * Implementasi perubahan isActive dari Y menjadi N di service implementasi.
      *
-     * @param T berupa Class
+     * @return void
+     * @param T class entity
      */
     public void softDelete(T entity) {
         getHibernateTemplate().update(entity);
@@ -113,9 +118,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
 
     /**
      * Method untuk mengambil total data
-     *
-     *
-     * @param T berupa Class.
+     * 
      * @return totalData berupa Long.
      */
     public Long getTotalData() {
@@ -135,7 +138,8 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
      * Method untuk mengambil semua data yang ada di database untuk class-class
      * tertentu.
      *
-     * @param T berupa Class.
+     * @param order berupa Class Order.asc - Order.desc.
+     * @return List<T> list of Object
      */
     public List<T> getAll(final Order order) {
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
@@ -156,13 +160,22 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
      * data baru maka method save dieksekusi. Jika data telah ada maka method
      * update yang akan di eksekusi.
      *
-     * @param T berupa class
-     * @return T beruoa class
+     * @param entity berupa class entity
+     * @return void
      */
     public void saveOrUpdateVoid(T entity) {
         getHibernateTemplate().saveOrUpdate(entity);
     }
 
+    /**
+     * Method untuk mengambil data berdasarkan Primary Key (PK) dan
+     * data attribute isActive 
+     * 
+     * @return T berupa class
+     * @param id primary key dari entity
+     * @param b isActive dengan tipe data byte
+     * 
+     */
     public T getByPkStringIsActive(final String id, final Byte b) {
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
             @Override
@@ -177,6 +190,13 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
         return (T) o;
     }
 
+    /**
+     * Method untuk mengambil data berdasarkan PK (Integer) dan data attribute isActive
+     * @return T berupa class
+     * @param id primary key berupa integer
+     * @param b isActive attribute dengan type date byte
+     *
+     */
     public T getByPkIntegerIsActive(final Integer id, final Byte b) {
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
             @Override
@@ -191,6 +211,20 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
         return (T) o;
     }
 
+    /**
+     * Method untuk mengambil sejumlah data dari tiap-tiap object class
+     * ditampung dalam Collection List. Banyaknya data di pagging dan di Order
+     * berdasarkan awal indeks data mulai dari 0 sampai banyaknya data yang akan
+     * di ambil. misalkan awal data=0 dan maksimum=10, maka akan keluar data dari
+     * indeks 0 sampai indeks 9. Ordering ascending dan Descending
+     * 
+     * @return List<T> list data 
+     * @param firstResult indeks awal berupa integer
+     * @param maxResults maksimum jumlah data yang di query
+     * @param order sorting data berupa Order.asc - Order.desc
+     * @param b attribute isActive (byte)
+     *
+     */
     public List<T> getAllDataIsActive(final int firstResult, final int maxResults, final Order order, final Byte b) {
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
             @Override
@@ -208,6 +242,11 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
         return (List<T>) o;
     }
 
+    /**
+     * Method untuk mengambil total data berdasarkan attribute isActive
+     * @return Long jumlah data yang didapat
+     * @param b berdasarkan attribute isActive (byte)
+     */
     public Long getTotalDataIsActive(final Byte b) {
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
             @Override
@@ -223,6 +262,12 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
         return (Long) o;
     }
 
+    /**
+     * Method untuk mengambil data bedasarkan attribute isActive dan Sorting data yang di peroleh
+     * @return List<T> list of class
+     * @param order sort type, Order.asc - Order.desc
+     * @param b isActive attribute (byte)
+     */
     public List<T> getAllIsActive(final Order order, final Byte b) {
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
             @Override
@@ -238,6 +283,12 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
         return (List<T>) o;
     }
     
+    /**
+     * Method untuk mengambil data berdasarkan PK dan attribute isActive
+     * @return T unique result, berupa class
+     * @param id primary key berupa string
+     * @param isActive attribute isActive berupa boolean
+     */
     public T getByPkStringIsActive(final String id, final Boolean isActive){
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -253,6 +304,13 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
         return (T) o;
     }
     
+    /**
+     * Method untuk mengambil data berdasarkan PK dan isActive attribute
+     * @return T unique result, berupa class
+     * @param id PK attribute berupa integer
+     * @param isActive isActive attribute berupa boolean
+     * 
+     */
      public T getByPkIntegerIsActive(final Integer id, final Boolean isActive) {
          Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -268,6 +326,20 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
          return (T) o;
      }
      
+     /**
+     * Method untuk mengambil sejumlah data dari tiap-tiap object class
+     * ditampung dalam Collection List. Banyaknya data di pagging dan di Order
+     * berdasarkan awal indeks data mulai dari 0 sampai banyaknya data yang akan
+     * di ambil. misalkan awal data=0 dan maksimum=10, maka akan keluar data dari
+     * indeks 0 sampai indeks 9. Ordering ascending dan Descending
+     * 
+     * @return List<T> list data 
+     * @param firstResult indeks awal berupa integer
+     * @param maxResults maksimum jumlah data yang di query
+     * @param order sorting data berupa Order.asc - Order.desc
+     * @param b attribute isActive (Boolean)
+     *
+     */
       public List<T> getAllDataIsActive(final int firstResult,final int maxResults,final Order order,final Boolean isActive){
           Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -286,6 +358,11 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
           return (List<T>) o;
       }
       
+      /**
+     * Method untuk mengambil total data berdasarkan attribute isActive
+     * @return Long jumlah data yang didapat
+     * @param isActive berdasarkan attribute isActive (Boolean)
+     */
       public Long getTotalDataIsActive(final Boolean isActive){
           Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -301,6 +378,12 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
           return (Long) o;
       }
       
+     /**
+     * Method untuk mengambil data bedasarkan attribute isActive dan Sorting data yang di peroleh
+     * @return List<T> list of class
+     * @param order sort type, Order.asc - Order.desc
+     * @param b isActive attribute (Boolean)
+     */
       public List<T> getAllIsActive(final Order order, final Boolean isActive){
           Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -317,6 +400,12 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
           return (List<T>) o;
       }
       
+      /**
+     * Method untuk mengambil data berdasarkan PK dan attribute isActive
+     * @return T unique result, berupa class
+     * @param id primary key berupa string
+     * @param isActive attribute isActive berupa String
+     */
       public T getByPkStringIsActive(final String id, final String isActive){
           Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -332,6 +421,12 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
           return (T) o;
       }
       
+     /**
+     * Method untuk mengambil data berdasarkan PK dan attribute isActive
+     * @return T unique result, berupa class
+     * @param id primary key berupa Integer
+     * @param isActive attribute isActive berupa String
+     */
       public T getByPkIntegerIsActive(final Integer id,final String isActive){
           Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -347,6 +442,20 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
           return (T) o;
       }
       
+      /**
+     * Method untuk mengambil sejumlah data dari tiap-tiap object class
+     * ditampung dalam Collection List. Banyaknya data di pagging dan di Order
+     * berdasarkan awal indeks data mulai dari 0 sampai banyaknya data yang akan
+     * di ambil. misalkan awal data=0 dan maksimum=10, maka akan keluar data dari
+     * indeks 0 sampai indeks 9. Ordering ascending dan Descending
+     * 
+     * @return List<T> list data 
+     * @param firstResult indeks awal berupa integer
+     * @param maxResults maksimum jumlah data yang di query
+     * @param order sorting data berupa Order.asc - Order.desc
+     * @param isActive attribute isActive (String)
+     *
+     */
       public List<T> getAllDataIsActive(final int firstResult, final int maxResults, final Order order, final String isActive){
           Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
@@ -365,7 +474,12 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
           return (List<T>) o;
       }
       
-       public Long getTotalDataIsActive(final String isActive){
+      /**
+     * Method untuk mengambil total data berdasarkan attribute isActive
+     * @return Long jumlah data yang didapat
+     * @param isActive berdasarkan attribute isActive (String)
+     */
+      public Long getTotalDataIsActive(final String isActive){
            Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
                @Override
@@ -380,6 +494,12 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
            return (Long) o;
        }
        
+      /**
+     * Method untuk mengambil data bedasarkan attribute isActive dan Sorting data yang di peroleh
+     * @return List<T> list of class
+     * @param order sort type, Order.asc - Order.desc
+     * @param b isActive attribute (String)
+     */
        public List<T> getAllIsActive(final Order order, final String isActive){
            Object o = getHibernateTemplate().execute(new HibernateCallback() {
 
