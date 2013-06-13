@@ -55,7 +55,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
 
     /**
      * Methode untuk penyimpan data dan update data. Apabila datanya berupa data
-     * baru maka method save dieksekusi. Jika data telah ada maka method update
+     * baru maka method save akan dieksekusi. Jika data telah ada maka method update
      * yang akan di eksekusi.
      *
      * @return T berupa class
@@ -67,7 +67,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     }
 
     /**
-     * Methode untuk mendelete Class dari Database.
+     * Methode untuk menghapus Class dari Database.
      *
      * @return T berupa class
      * @param T class entity
@@ -157,7 +157,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
 
     /**
      * Methode void untuk penyimpan data dan update data. Apabila datanya berupa
-     * data baru maka method save dieksekusi. Jika data telah ada maka method
+     * data baru maka method save akan dieksekusi. Jika data telah ada maka method
      * update yang akan di eksekusi.
      *
      * @param entity berupa class entity
@@ -168,7 +168,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     }
 
     /**
-     * Method untuk mengambil data berdasarkan Primary Key (PK) dan
+     * Method untuk mengambil data berdasarkan Primary Key (PK) dan berdasarkan
      * data attribute isActive 
      * 
      * @return T berupa class
