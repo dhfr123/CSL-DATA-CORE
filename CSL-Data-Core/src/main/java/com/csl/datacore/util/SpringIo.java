@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Deni Husni Fahri Rizal
  */
-@Service(value = "springIo")
+
 public class SpringIo {
 
     
