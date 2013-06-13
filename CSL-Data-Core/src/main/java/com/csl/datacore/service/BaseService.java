@@ -41,4 +41,25 @@ public interface BaseService<T> {
     public Long getTotalDataIsActive(Byte b) throws Exception;
 
     public List<T> getAllIsActive(Order order, Byte b) throws Exception;
+    
+    public T getByPkStringIsActive(String id, Boolean isActive) throws Exception;
+
+    public T getByPkIntegerIsActive(Integer id, Boolean isActive) throws Exception;
+
+    public List<T> getAllDataIsActive(int firstResult, int maxResults, Order order, Boolean isActive)  throws Exception;
+
+    public Long getTotalDataIsActive(Boolean isActive) throws Exception;
+
+    public List<T> getAllIsActive(Order order, Boolean isActive) throws Exception;
+
+    public T getByPkStringIsActive(String id, String isActive) throws Exception;
+
+    public T getByPkIntegerIsActive(Integer id, String isActive) throws Exception;
+
+    public List<T> getAllDataIsActive(int firstResult, int maxResults, Order order, String isActive) throws Exception;
+
+    public Long getTotalDataIsActive(String isActive) throws Exception;
+
+    public List<T> getAllIsActive(Order order, String isActive) throws Exception;
+
 }

@@ -9,7 +9,7 @@ Changes in version 1.0.RELEASE (2013-06-13)
 * Include Hibernate Validator 5.0.1.Final
 * Include CDI 1.1
 * Include MySQL Connector 5.1.25
-* Include PROSGRESQL Connector 9.1-901.jdbc4
+* Include POSTGRESQL Connector 9.1-901.jdbc4
 
 
 

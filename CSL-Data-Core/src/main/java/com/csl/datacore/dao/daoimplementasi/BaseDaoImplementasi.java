@@ -16,9 +16,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- * Semua Class DaoImplementasi merupakan turunan dari BaseDaoImplemenasi. Semua
- * implementasi methode BaseDao secara dinamik di implemenasi sesuai class
- * entitynya masing-masing. Ini di gunakan khsusu untuk spring hibernate.
+ * Semua Class DaoImplementasi merupakan turunan dari BaseDaoImplementasi. Semua
+ * implementasi method BaseDao secara dinamik di implemenasi sesuai class
+ * entitynya masing-masing. Ini di gunakan khusus untuk spring hibernate.
  *
  * @author Deni Husni Fahri Rizal
  * @param T berupa Class Entity.
@@ -53,7 +53,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     /**
      * Methode untuk penyimpan data dan update data. Apabila datanya berupa data
      * baru maka method save dieksekusi. Jika data telah ada maka method update
-     * yang di eksekusi.
+     * yang akan di eksekusi.
      *
      * @param T berupa class
      * @return T beruoa class
@@ -64,7 +64,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     }
 
     /**
-     * Methode untuk mendelete Clsss dari Database.
+     * Methode untuk mendelete Class dari Database.
      *
      * @param T berupa Class
      */
@@ -74,7 +74,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
 
     /**
      * Method delete secara soft dengan merubah isActive dari Y menjadi N.
-     * Implemetnasi perubahan isActive dari Y menjadi N di service implementasi.
+     * Implementasi perubahan isActive dari Y menjadi N di service implementasi.
      *
      * @param T berupa Class
      */
@@ -84,15 +84,15 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
 
     /**
      * Method untuk mengambil sejumlah data dari tiap-tiap object class
-     * ditampung dalam Coleectioan List. Banyaknya data di pagging dan di Oreder
+     * ditampung dalam Collection List. Banyaknya data di pagging dan di Order
      * berdasarkan awal indeks data mulai dari 0 sampai banyaknya data yang akan
-     * di ambil. misalkan awal data=0 dan maksimu=10, maka akan keluar data dari
+     * di ambil. misalkan awal data=0 dan maksimum=10, maka akan keluar data dari
      * indeks 0 sampai indeks 9. Ordering ascending dan Descending
      *
-     * @return List<T> berupa kumpulsn T class.
+     * @return List<T> berupa kumpulan T class.
      * @param firstResult berupa integer indeks awal.
      * @param maxResults berupa integer maksimum jumlah data yang diquery.
-     * @param order berupa object class Order bernikai asc dan desc.
+     * @param order berupa object class Order bernilai asc dan desc.
      */
     public List<T> getAllData(final int firstResult, final int maxResults, final Order order) {
         Object o = getHibernateTemplate().execute(new HibernateCallback() {
@@ -132,7 +132,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     }
 
     /**
-     * Method untuk mengambil semuad data yang ada di database untuk class-class
+     * Method untuk mengambil semua data yang ada di database untuk class-class
      * tertentu.
      *
      * @param T berupa Class.
@@ -154,7 +154,7 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
     /**
      * Methode void untuk penyimpan data dan update data. Apabila datanya berupa
      * data baru maka method save dieksekusi. Jika data telah ada maka method
-     * update yang di eksekusi.
+     * update yang akan di eksekusi.
      *
      * @param T berupa class
      * @return T beruoa class
@@ -237,4 +237,162 @@ public abstract class BaseDaoImplementasi<T> extends HibernateDaoSupport {
         });
         return (List<T>) o;
     }
+    
+    public T getByPkStringIsActive(final String id, final Boolean isActive){
+        Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+            @Override
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Criteria criteria = session.createCriteria(getEntityClass());
+                criteria.add(Restrictions.eq("id", id));
+                criteria.add(Restrictions.eq("isActive", isActive));
+                return criteria.uniqueResult();
+            }
+        });
+        
+        return (T) o;
+    }
+    
+     public T getByPkIntegerIsActive(final Integer id, final Boolean isActive) {
+         Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+             @Override
+             public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                 Criteria criteria = session.createCriteria(getEntityClass());
+                 criteria.add(Restrictions.eq("id", id));
+                 criteria.add(Restrictions.eq("isActive", isActive));
+                 return criteria.uniqueResult();
+             }
+         });
+         
+         return (T) o;
+     }
+     
+      public List<T> getAllDataIsActive(final int firstResult,final int maxResults,final Order order,final Boolean isActive){
+          Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+              @Override
+              public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                  Criteria criteria = session.createCriteria(getEntityClass());
+                  criteria.addOrder(order);
+                  criteria.add(Restrictions.isNotNull("id"));
+                  criteria.add(Restrictions.eq("isActive", isActive));
+                  criteria.setFirstResult(firstResult);
+                  criteria.setMaxResults(maxResults);
+                  return criteria.list();
+              }
+          });
+          
+          return (List<T>) o;
+      }
+      
+      public Long getTotalDataIsActive(final Boolean isActive){
+          Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+              @Override
+              public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                  Criteria criteria = session.createCriteria(getEntityClass());
+                  criteria.add(Restrictions.isNotNull("id"));
+                  criteria.add(Restrictions.eq("isActive", isActive));
+                  return criteria.setProjection(Projections.rowCount()).uniqueResult();
+              }
+          });
+          
+          return (Long) o;
+      }
+      
+      public List<T> getAllIsActive(final Order order, final Boolean isActive){
+          Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+              @Override
+              public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                  Criteria criteria = session.createCriteria(getEntityClass());
+                  criteria.addOrder(order);
+                  criteria.add(Restrictions.isNotNull("id"));
+                  criteria.add(Restrictions.eq("isActive", isActive));
+                  return criteria.list();
+              }
+          });
+          
+          return (List<T>) o;
+      }
+      
+      public T getByPkStringIsActive(final String id, final String isActive){
+          Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+              @Override
+              public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                  Criteria criteria = session.createCriteria(getEntityClass());
+                  criteria.add(Restrictions.eq("id", id));
+                  criteria.add(Restrictions.eq("isActive", isActive));
+                  return criteria.uniqueResult();
+              }
+          });
+          
+          return (T) o;
+      }
+      
+      public T getByPkIntegerIsActive(final Integer id,final String isActive){
+          Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+              @Override
+              public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                  Criteria criteria = session.createCriteria(getEntityClass());
+                  criteria.add(Restrictions.eq("id", id));
+                  criteria.add(Restrictions.eq("isActive", isActive));
+                  return criteria.uniqueResult();
+              }
+          });
+          
+          return (T) o;
+      }
+      
+      public List<T> getAllDataIsActive(final int firstResult, final int maxResults, final Order order, final String isActive){
+          Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+              @Override
+              public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                  Criteria criteria = session.createCriteria(getEntityClass());
+                  criteria.addOrder(order);
+                  criteria.add(Restrictions.isNotNull("id"));
+                  criteria.add(Restrictions.eq("isActive", isActive));
+                  criteria.setFirstResult(firstResult);
+                  criteria.setMaxResults(maxResults);
+                  return criteria.list();
+              }
+          });
+          
+          return (List<T>) o;
+      }
+      
+       public Long getTotalDataIsActive(final String isActive){
+           Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+               @Override
+               public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                   Criteria criteria = session.createCriteria(getEntityClass());
+                   criteria.add(Restrictions.isNotNull("id"));
+                   criteria.add(Restrictions.eq("isActive", isActive));
+                   return criteria.setProjection(Projections.rowCount()).uniqueResult();
+               }
+           });
+           
+           return (Long) o;
+       }
+       
+       public List<T> getAllIsActive(final Order order, final String isActive){
+           Object o = getHibernateTemplate().execute(new HibernateCallback() {
+
+               @Override
+               public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                   Criteria criteria = session.createCriteria(getEntityClass());
+                   criteria.addOrder(order);
+                   criteria.add(Restrictions.isNotNull("id"));
+                   criteria.add(Restrictions.eq("isActive", isActive));
+                   return criteria.list();
+               }
+           });
+           
+           return (List<T>) o;
+       }
 }
