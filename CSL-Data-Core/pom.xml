@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.csl.datacore</groupId>
-  <artifactId>CSL-Data-Core</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>com.csl.datacore</groupId>
+    <artifactId>csl-data-core</artifactId>
+    <version>1.0-RELEASE</version>
+    <packaging>jar</packaging>
 
-  <name>CSL-Data-Core</name>
-  <url>http://maven.apache.org</url>
+    <name>csl-data-core</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <springframework-version>3.1.2.RELEASE</springframework-version>
+        <springframework-version>3.1.4.RELEASE</springframework-version>
         <springdatajpa-version>1.3.2.RELEASE</springdatajpa-version>
         <hibernate-version>4.2.1.Final</hibernate-version>
         <hibernate-validator-version>5.0.1.Final</hibernate-validator-version>
@@ -30,7 +30,7 @@
                 <role>Developer</role>
             </roles>
         </developer>
-         <developer>
+        <developer>
             <name>Satrio Aditya</name>
             <email>satrio.aditya@ciptasrigatilestari.co.id</email>
             <organization>CSL</organization>
@@ -78,8 +78,20 @@
             <artifactId>cdi-api</artifactId>
             <version>1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework-version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
-    <build>
+<!--    <build>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -87,7 +99,7 @@
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>attached</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -108,6 +120,6 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
-    <description>Componet CSL-DATA-CORE: Spring, Hibernate, Spring Data JPA, JPA, CDI,MySQL, </description>
+    </build>-->
+    <description>Componet CSL-DATA-CORE: Spring, Hibernate, Spring Data JPA, JPA, CDI,MySQL,ProsgreSQL </description>
 </project>

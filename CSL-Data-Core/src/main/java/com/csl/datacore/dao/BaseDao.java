@@ -20,6 +20,8 @@ public interface BaseDao<T> {
 
     public T getByPkInteger(Integer id);
 
+    public T getByPkLong(Long id);
+
     public T saveOrUpdate(T entity);
 
     public void delete(T entity);

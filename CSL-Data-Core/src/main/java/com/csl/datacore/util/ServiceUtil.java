@@ -12,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 
  * @author Deni Husni Fahri Rizal
  * @param ApplicationContext spring context
- * @param pathappcontext tempat ApplicationContext berada
+ * @param pathappcontext alamat atau path ApplicationContext 
  * 
  */
 public class ServiceUtil {
@@ -26,8 +26,14 @@ public class ServiceUtil {
         return appContext;
     }
 
+    
     /**
      * Methode untuk mendapatkan object service dari setiap Class atau Interface yang di manage sama Spring.
+     * <p><b>Contoh Code:</b>
+     * <br/>SpringIO springIO=(SpringIO) ServiceUtil.getService("springIO");
+     * <br/>springIO.getSomeThing();
+     * 
+     * 
      * @param beansName nama dari interface atau class yang akan di ambil object nya
      * @return berupa Object sesuai dengan nama class atau interface yang di panggil.
      */
